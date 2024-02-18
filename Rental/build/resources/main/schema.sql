@@ -1,0 +1,18 @@
+CREATE TABLE car_details (
+id SERIAL PRIMARY KEY,
+brand VARCHAR(255) NOT NULL,
+model VARCHAR(255) NOT NULL,
+type VARCHAR(255) NOT NULL,
+registration_number VARCHAR(255) UNIQUE NOT NULL,
+gearbox_type VARCHAR(255) NOT NULL,
+fuel_type VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE customer_details (
+id SERIAL PRIMARY KEY,
+first_name VARCHAR(255) NOT NULL,
+last_name VARCHAR(255) NOT NULL,
+date_of_birth DATE NOT NULL,
+adress VARCHAR(255) NOT NULL,
+city VARCHAR (255) NOT NULL
+);

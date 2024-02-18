@@ -1,0 +1,1 @@
+UPDATE customer_details SET first_name='Esia' WHERE first_name='Eska';
