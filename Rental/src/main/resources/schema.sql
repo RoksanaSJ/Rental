@@ -23,7 +23,7 @@ login VARCHAR(255) NOT NULL,
 mail VARCHAR(255) NOT NULL,
 password VARCHAR(255) NOT NULL,
 customer_details_id INT NOT NULL,
-CONSTRAINT fk_customer_details_is
+CONSTRAINT fk_customer_details_id
  FOREIGN KEY(customer_details_id)
  REFERENCES customer_details(id)
  ON DELETE CASCADE
