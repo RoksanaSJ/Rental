@@ -1,6 +1,7 @@
 package com.roxys.rental.menu;
 
 import com.roxys.rental.Main;
+import com.roxys.rental.connection.DatabaseConnection;
 import com.roxys.rental.model.CarDetails;
 import com.roxys.rental.repository.CarDetailsRepository;
 import org.slf4j.Logger;
@@ -49,8 +50,7 @@ public class CarMenu {
         }
     }
     public void addCar(String brand, String model, String type, String registrationNumber, String gearboxType, String fuelType){
-        try (Connection con =
-                     DriverManager.getConnection("jdbc:postgresql://localhost:5432/roxys", "roxys", "roxys")) {
+        try (Connection con = DatabaseConnection.createConnection()) {
             CarDetailsRepository carDetailsRepository = new CarDetailsRepository(con);
             carDetailsRepository.insert(brand,model,type,registrationNumber,gearboxType,fuelType);
         } catch (SQLException e) {
@@ -58,8 +58,7 @@ public class CarMenu {
         }
     }
     public void deleteCar(long id){
-        try (Connection con =
-                     DriverManager.getConnection("jdbc:postgresql://localhost:5432/roxys", "roxys", "roxys")) {
+        try (Connection con = DatabaseConnection.createConnection()) {
             CarDetailsRepository carDetailsRepository = new CarDetailsRepository(con);
             List<CarDetails> carDetailsList = carDetailsRepository.findAll();
             for(CarDetails car : carDetailsList){
@@ -72,8 +71,7 @@ public class CarMenu {
         }
     }
     public void listCars(){
-        try (Connection con =
-                     DriverManager.getConnection("jdbc:postgresql://localhost:5432/roxys", "roxys", "roxys")) {
+        try (Connection con = DatabaseConnection.createConnection()) {
             CarDetailsRepository carDetailsRepository = new CarDetailsRepository(con);
             List<CarDetails> carDetailsList = carDetailsRepository.findAll();
             System.out.println(carDetailsList);

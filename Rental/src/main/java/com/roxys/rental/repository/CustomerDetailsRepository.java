@@ -40,6 +40,9 @@ public class CustomerDetailsRepository {
         insertDeleteUpdateStatement("DELETE FROM customer_details " +
                 "WHERE id=" + customerDetails.getId() +";");
     }
+    public void deleteAll() throws SQLException{
+        insertDeleteUpdateStatement("TRUNCATE TABLE customer_details CASCADE;");
+    }
     public void update(CustomerDetails customerDetails) throws SQLException {
         insertDeleteUpdateStatement("UPDATE customer_details SET adress='"+customerDetails.getAdress()+"' WHERE id='"+customerDetails.getId()+"';");
     }

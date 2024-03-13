@@ -1,8 +1,7 @@
 package com.roxys.rental.menu;
 
-import com.roxys.rental.model.CarDetails;
+import com.roxys.rental.connection.DatabaseConnection;
 import com.roxys.rental.model.CustomerDetails;
-import com.roxys.rental.repository.CarDetailsRepository;
 import com.roxys.rental.repository.CustomerDetailsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,7 +32,7 @@ public class CustomerMenu {
                 String lastName = scanner.next().toString();
                 System.out.println("Enter date of birth (yyyy-MM-dd):");
                 String dateOfBirth = scanner.next();
-                LocalDate convertedDateOfBirth = scanToLocalDate(dateOfBirth);
+                LocalDate convertedDateOfBirth = convertToLocalDate(dateOfBirth);
                 System.out.println("Enter the adress:");
                 String adress = scanner.next().toString();
                 System.out.println("Enter the city:");
@@ -52,8 +50,7 @@ public class CustomerMenu {
         }
     }
     public void addCustomer(String firstName, String lastName, LocalDate dateOfBirth, String adress, String city){
-        try (Connection con =
-                     DriverManager.getConnection("jdbc:postgresql://localhost:5432/roxys", "roxys", "roxys")) {
+        try (Connection con = DatabaseConnection.createConnection()) {
             CustomerDetailsRepository customerDetailsRepository = new CustomerDetailsRepository(con);
             customerDetailsRepository.insert(firstName,lastName,dateOfBirth,adress,city);
         } catch (SQLException e) {
@@ -61,8 +58,7 @@ public class CustomerMenu {
         }
     }
     public void deleteCustomer(long id){
-        try (Connection con =
-                     DriverManager.getConnection("jdbc:postgresql://localhost:5432/roxys", "roxys", "roxys")) {
+        try (Connection con = DatabaseConnection.createConnection()) {
             CustomerDetailsRepository customerDetailsRepository = new CustomerDetailsRepository(con);
             List<CustomerDetails> customerDetailsList = customerDetailsRepository.findAll();
             for(CustomerDetails customer : customerDetailsList){
@@ -74,17 +70,34 @@ public class CustomerMenu {
             logger.error("Connection failed: " + e.getMessage());
         }
     }
-    public void listCustomers(){
-        try (Connection con =
-                     DriverManager.getConnection("jdbc:postgresql://localhost:5432/roxys", "roxys", "roxys")) {
+    public List<CustomerDetails> listCustomers(){
+        try (Connection con = DatabaseConnection.createConnection()) {
             CustomerDetailsRepository customerDetailsRepository = new CustomerDetailsRepository(con);
             List<CustomerDetails> customerDetailsList = customerDetailsRepository.findAll();
             System.out.println(customerDetailsList);
+            return customerDetailsList;
         } catch (SQLException e) {
             logger.error("Connection failed: " + e.getMessage());
         }
+        return List.of();
     }
-    private LocalDate scanToLocalDate(String date){
+
+    public CustomerDetails findCustomerByFullname(String fullName){
+        try (Connection con = DatabaseConnection.createConnection()) {
+            CustomerDetailsRepository customerDetailsRepository = new CustomerDetailsRepository(con);
+            List<CustomerDetails> customerDetailsList = customerDetailsRepository.findAll();
+            for (CustomerDetails customers:customerDetailsList) {
+                if((customers.getFirstName()+" "+customers.getLastName()).equals(fullName)){
+                    return customers;
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Connection failed: " + e.getMessage());
+        }
+        return null;
+    }
+
+    private LocalDate convertToLocalDate(String date){
         try (Scanner scanner = new Scanner(date)) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             return LocalDate.parse(date, formatter);

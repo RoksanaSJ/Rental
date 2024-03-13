@@ -1,0 +1,4 @@
+[]
+j[CustomerDetails{id=23, firstName='a', lastName='a', dateOfBirth=2020-01-08, adress='bb 2', city='bbb'}]
+[]
+Ò[CustomerDetails{id=25, firstName='a', lastName='a', dateOfBirth=2020-01-08, adress='bb 2', city='bbb'}, CustomerDetails{id=26, firstName='b', lastName='b', dateOfBirth=2020-01-08, adress='aa 2', city='aaa'}]
