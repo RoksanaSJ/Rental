@@ -1,6 +1,5 @@
 package com.roxys.rental.menu;
 
-import com.roxys.rental.Main;
 import com.roxys.rental.connection.DatabaseConnection;
 import com.roxys.rental.model.CarDetails;
 import com.roxys.rental.repository.CarDetailsRepository;
@@ -8,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
@@ -70,13 +68,29 @@ public class CarMenu {
             logger.error("Connection failed: " + e.getMessage());
         }
     }
-    public void listCars(){
+    public CarDetails findCarByRegistrationNumber(String registraionNumber){
+        try (Connection con = DatabaseConnection.createConnection()) {
+            CarDetailsRepository carDetailsRepository = new CarDetailsRepository(con);
+            List<CarDetails> carDetailsList = carDetailsRepository.findAll();
+            for (CarDetails cars:carDetailsList) {
+                if((cars.getRegistrationNumber()).equals(registraionNumber)){
+                    return cars;
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Connection failed: " + e.getMessage());
+        }
+        return null;
+    }
+    public List<CarDetails> listCars(){
         try (Connection con = DatabaseConnection.createConnection()) {
             CarDetailsRepository carDetailsRepository = new CarDetailsRepository(con);
             List<CarDetails> carDetailsList = carDetailsRepository.findAll();
             System.out.println(carDetailsList);
+            return carDetailsList;
         } catch (SQLException e) {
             logger.error("Connection failed: " + e.getMessage());
         }
+        return List.of();
     }
 }

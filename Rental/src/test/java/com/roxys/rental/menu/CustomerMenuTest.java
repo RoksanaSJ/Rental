@@ -1,7 +1,6 @@
 package com.roxys.rental.menu;
 
 import com.roxys.rental.connection.DatabaseConnection;
-import com.roxys.rental.menu.CustomerMenu;
 import com.roxys.rental.model.CustomerDetails;
 import com.roxys.rental.repository.CustomerDetailsRepository;
 import org.junit.jupiter.api.AfterEach;

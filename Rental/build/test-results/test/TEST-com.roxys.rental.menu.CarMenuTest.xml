@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.roxys.rental.menu.CarMenuTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2024-03-18T16:28:06" hostname="LAPTOP-0QTBBGQU" time="1.881">
+  <properties/>
+  <testcase name="testCarEmptyList()" classname="com.roxys.rental.menu.CarMenuTest" time="1.115"/>
+  <testcase name="testCarList()" classname="com.roxys.rental.menu.CarMenuTest" time="0.29"/>
+  <testcase name="testDeleteCar()" classname="com.roxys.rental.menu.CarMenuTest" time="0.248"/>
+  <testcase name="testAddCar()" classname="com.roxys.rental.menu.CarMenuTest" time="0.218"/>
+  <system-out><![CDATA[[]
+[CarDetails{id=13, brand='test', model='test', type='test', registrationNumber='test', gearboxType='test', fuelType='test'}, CarDetails{id=14, brand='test2', model='test2', type='test2', registrationNumber='test2', gearboxType='test2', fuelType='test2'}]
+[]
+[CarDetails{id=16, brand='test', model='test', type='test', registrationNumber='test', gearboxType='test', fuelType='test'}]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

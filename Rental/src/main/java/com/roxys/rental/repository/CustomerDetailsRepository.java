@@ -1,8 +1,6 @@
 package com.roxys.rental.repository;
 
-import com.roxys.rental.mapper.CarDetailsMapper;
 import com.roxys.rental.mapper.CustomerDetailsMapper;
-import com.roxys.rental.model.CarDetails;
 import com.roxys.rental.model.CustomerDetails;
 
 import java.sql.Connection;

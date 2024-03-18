@@ -34,6 +34,9 @@ public class CarDetailsRepository {
         insertDeleteUpdateStatement("DELETE FROM car_details " +
                     "WHERE id=" + carDetails.getId() +";");
     }
+    public void deleteAll() throws SQLException{
+        insertDeleteUpdateStatement("TRUNCATE TABLE car_details CASCADE;");
+    }
     public void update(CarDetails carDetails) throws SQLException {
         insertDeleteUpdateStatement("UPDATE car_details SET type='"+carDetails.getType()+"' WHERE id='"+carDetails.getId()+"';");
     }
